@@ -1,1 +1,2 @@
 *.html linguist-language=TypeScript
+*.ejs linguist-language=TypeScript
