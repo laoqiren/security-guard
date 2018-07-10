@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "removeComments": true,
+        "moduleResolution": "Node",
+        "outDir": "lib",
+        "allowJs": true,
+        "target": "es5",
+        "downlevelIteration": true,
+        "sourceMap": true,
+        "lib": ["es6"],
+        "types": [
+            "node"
+        ]
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

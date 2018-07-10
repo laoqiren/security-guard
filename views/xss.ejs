@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试xss</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>测试XSS</h1>
+    <p>用户名：<%- userName %></p>
+
+    <div id="container">测试jq的append()</div>
+    <div>测试反射：<%- query %> </div>
+
+    <!-- 测试DOM based -->
+    <input value="<%- query %>" id="content"/>
+    <div id="dom-based">dom based</div>
+
+    <script>
+        // jq的append
+        $('#container').append("<script>alert('测试$.append()');");
+        
+        let val = document.getElementById('content').value
+        
+        $('#dom-based').append(val);
+    </script>
+</body>
+</html>

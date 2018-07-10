@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "启动Guard",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/lib/Helper/test.js",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector"
+        }
+    ]
+  }
