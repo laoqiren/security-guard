@@ -1,6 +1,6 @@
 {
   "name": "security-guard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Providing security guards for Node.js applications",
   "main": "lib/guard.js",
   "scripts": {
