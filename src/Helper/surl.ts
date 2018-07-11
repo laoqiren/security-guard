@@ -2,12 +2,12 @@
  * @Author: laoqiren 
  * @Date: 2018-07-10 19:41:50 
  * @Last Modified by: laoqiren
- * @Last Modified time: 2018-07-10 20:59:56
+ * @Last Modified time: 2018-07-11 20:59:41
  */
 
 import { URL, URLSearchParams } from 'url';
 
-interface Otpions {
+export interface SurlOtpions {
   protocolWhiteList?: string[]
 }
 
@@ -19,11 +19,14 @@ const escapeMap: object = {
   '\'': '&#x27;',
 };
 
-export default function(sourceUrl: string, options: Otpions = {}): string {
+export default function(sourceUrl: string, options?: SurlOtpions): string {
   let _url: URL;
-  const protocols: Set<string> = new Set();
-  const { protocolWhiteList= defaultProtocolWhiteList} = options;
+  let options_: SurlOtpions = options || (this.securityOptions && this.securityOptions.helper.surl) || {};
 
+  const protocols: Set<string> = new Set();
+  const { protocolWhiteList= defaultProtocolWhiteList} = options_;
+
+  console.log(protocolWhiteList)
   try {
     _url = new URL(sourceUrl);
   } catch(e) {
