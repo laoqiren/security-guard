@@ -29,7 +29,8 @@
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
-    "koa-views": "^6.1.4"
+    "koa-views": "^6.1.4",
+    "xss": "^1.0.3"
   },
   "devDependencies": {
     "@types/node": "^10.5.2",

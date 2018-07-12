@@ -34,6 +34,14 @@ Options {
 }
 ```
 
+## `CSRF`
+
+To preview the example of `CSRF` attack, go to `localhost:3000/csrf_source` first, server will set cookie to `/csrf_source`, then go to `localhost:3000/csrf_attack` to attack `/csrf_source`. You can set a host like `127.0.0.1 attack.luoxia.me`, then go to `attack.luoxia.me:3000/csrf_attack`, then test again.
+
+### `.csrf()`
+
+// todo
+
 ## Helper
 
 some utils to help reducing `XSS` and other security risks.
@@ -75,5 +83,27 @@ router.get('/surl', async ctx => {
 ```
 
 **Go to `localhost:3000/surl?q=<xss>` to preview it, replace `xss` with your `script`**
+
+### `helper.shtml(sourceHtml [,option])`
+transform the richtext to secure string, based on `js-xss`.
+
+* **sourceHtml** \<string\> the richtext to transform.
+* **options**   \<ShtmlOptions\> refer to [js-xss](https://github.com/leizongmin/js-xss)
+
+**exp.**
+```js
+router.post('/shtml', async ctx => {
+    const text = ctx.request.body.text;
+
+    ctx.status = 200;
+    const secureHTML = ctx.helper.shtml(text, {
+        whiteList: {
+            img: ['src']
+        }
+    });
+    ctx.response.body = secureHTML;
+});
+```
+go to `localhost:3000/shtml` to preview it.
 
 // todo

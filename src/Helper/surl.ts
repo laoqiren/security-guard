@@ -2,10 +2,10 @@
  * @Author: laoqiren 
  * @Date: 2018-07-10 19:41:50 
  * @Last Modified by: laoqiren
- * @Last Modified time: 2018-07-11 20:59:41
+ * @Last Modified time: 2018-07-12 15:52:44
  */
 
-import { URL, URLSearchParams } from 'url';
+import { URL } from 'url';
 
 export interface SurlOtpions {
   protocolWhiteList?: string[]

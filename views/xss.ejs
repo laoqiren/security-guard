@@ -18,6 +18,9 @@
     <input value="<%- query %>" id="content"/>
     <div id="dom-based">dom based</div>
 
+    <!-- 测试img 与unicode -->
+    <div id="img">
+    </div>
     <script>
         // jq的append
         $('#container').append("<script>alert('测试$.append()');");
@@ -25,6 +28,8 @@
         let val = document.getElementById('content').value
         
         $('#dom-based').append(val);
+
+        document.getElementById('img').innerHTML = "\u003cimg src='' onerror=javascript:alert('图片加载出错，脚本执行');\u003e";
     </script>
 </body>
 </html>

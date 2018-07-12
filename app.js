@@ -49,6 +49,53 @@ router.get('/surl', async ctx => {
     });
 });
 
+router.get('/shtml', async ctx => {
+    await ctx.render('shtml');
+});
+
+router.post('/shtml', async ctx => {
+    const text = ctx.request.body.text;
+    console.log(text);
+
+    ctx.status = 200;
+    const secureHTML = ctx.helper.shtml(text, {
+        whiteList: {
+            img: ['src']
+        }
+    });
+    console.log("经过shtml转义后的html:", secureHTML);
+    ctx.response.body = secureHTML;
+});
+
+// CSRF
+router.get('/csrf_source', async ctx => {
+    console.log('request from', ctx.request.originalUrl);
+    const name = ctx.cookies.get('name');
+    console.log('cookie name:', name);
+    if(!name) {
+        console.log('new cookies');
+        ctx.cookies.set('name', 'luoxia', {
+            maxAge: 1000 * 3600,
+            path: '/csrf_source'
+        });
+    }
+    
+    await ctx.render('csrf/csrf_source');
+});
+router.post('/csrf_source', async ctx => {
+    const name = ctx.cookies.get('name');
+    const book = ctx.request.body.book;
+
+    console.log('post cookie name:', name);
+    console.log('post book:', book);
+    ctx.status = 200;
+    ctx.response.body = "success";
+});
+
+router.get('/csrf_attack', async ctx => {
+    await ctx.render('csrf/csrf_attack');
+});
+
 app.use(router.routes());
 
 app.listen(port,() => {
