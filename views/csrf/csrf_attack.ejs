@@ -12,12 +12,24 @@
     <form id="danger_form" hidden method="post" action="http://localhost:3000/csrf_source">
         <input name="book" id="book" value=20 />
     </form>
-    <button id="btn">诱导或自动提交</button>
-    <button id="asyncBtn">测试异步提交（如果处于不同域，由于同源策略，攻击无效）</button>
+    <form id="notoken_form" hidden method="post" action="http://localhost:3000/csrf">
+        <input name="name" value="luoxia" />
+        <input name="pwd" value="xljaljfa" />
+    </form>
+    诱导或自动提交到/csrf_source，自动带上/csrf_source的cookie，/csrf_source无token防护：<button id="btn">攻击/csrf_source</button> <br/>
+    异步请求到/csrf_source，如果处于不同域，由于同源策略，攻击无效：
+    <button id="asyncBtn">测试异步提交</button>
     <!-- <img src="http://localhost:3000/csrf_source?book=20" /> -->
+    <br/>
+    测试加入token防护的/csrf，攻击无效：<button id="token_btn">自动提交到/csrf</button>
+    <br/><br/>
+    <span style="color:red">注意：</span> 测试时，保证/csrf_source和/csrf_attack，/csrf和/csrf_attck处于不同域，本地可以先起服务localhost:3000，然后添加host: 127.0.0.1 attack.luoxia.me，使用attack.luoxia.me:3000/csrf_attack访问攻击网站
     <script>
         $('#btn').on('click', e => {
             $('#danger_form').submit();
+        });
+        $('#token_btn').on('click', e => {
+            $('#notoken_form').submit();
         });
         $('#asyncBtn').on('click', e => {
             $.ajax({

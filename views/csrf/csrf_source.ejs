@@ -9,5 +9,8 @@
 </head>
 <body>
     <h1>测试CSRF</h1>
+    此路径无token防护，访问次网站，服务器为此网站设定cookie，来自/csrf_attck网站模拟提交请求到POST /csrf_source，浏览器会自动带上/csrf_source的cookie，CSRF攻击产生
+    <br/><br/>
+    现在尝试到/csrf_attack攻击此网站
 </body>
 </html>

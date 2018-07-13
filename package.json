@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/laoqiren/security-guard#readme",
   "dependencies": {
+    "csrf": "^3.0.6",
     "ejs": "^2.6.1",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",

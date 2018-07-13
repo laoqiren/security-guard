@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试CSRF</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>测试CSRF</h1>
+    <form method="POST">
+        <input name="name" type="text" />
+        <input name="pwd" type="password" />
+        <input name="access_token" hidden value=<%= access_token %> />
+        <button type="submit">点击提交</button>
+    </fom>
+    <br/><br/>
+    加入token防护，表单中隐藏了服务端生成的token，异步提交时，从cookie中取出_csrf，也可以通过验证
+</body>
+</html>

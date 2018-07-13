@@ -17,6 +17,9 @@ app.use(Guard({
         surl: {
             protocolWhiteList: ['http','https'] 
         }
+    },
+    csrf: {
+        ignorePaths: ['/csrf_source']
     }
 }));
 
@@ -94,6 +97,22 @@ router.post('/csrf_source', async ctx => {
 
 router.get('/csrf_attack', async ctx => {
     await ctx.render('csrf/csrf_attack');
+});
+router.get('/csrf', async ctx => {
+    const token = ctx.csrf;
+    console.log("生成的token:", token);
+    await ctx.render('csrf/csrf', {
+        access_token: token
+    });
+});
+router.post('/csrf', async ctx => {
+    const name = ctx.request.body.name;
+    const pwd = ctx.request.body.pwd;
+    const access_token = ctx.request.body.access_token;
+
+    console.log(name, pwd, access_token);
+    ctx.status = 200;
+    ctx.response.body = 'success';
 });
 
 app.use(router.routes());

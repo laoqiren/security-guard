@@ -1,16 +1,20 @@
 import surl, { SurlOtpions } from './Helper/surl';
 import shtml, { ShtmlOptions } from './Helper/shtml';
 
+import CSRF, { CSRFOptions } from './csrf';
+import CSRFMiddleware from './middlewares/csrf';
+
 interface Options {
     helper: {
         surl?: SurlOtpions,
         shtml?: ShtmlOptions
-    }
+    },
+    csrf: CSRFOptions
 }
 
 const defaultOptions: Options = {
-    helper: {
-    }
+    helper: {},
+    csrf: {}
 }
 module.exports =  function (options: Options = defaultOptions) {
     return async function guard(ctx, next) {
@@ -19,6 +23,9 @@ module.exports =  function (options: Options = defaultOptions) {
             surl: surl.bind(ctx),
             shtml: shtml.bind(ctx)
         };
+        Object.defineProperties(ctx, Object.getOwnPropertyDescriptors(CSRF));
+        
+        await CSRFMiddleware(ctx);
         await next();
     }
 }
